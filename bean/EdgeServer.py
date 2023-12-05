@@ -1,13 +1,18 @@
 class EdgeServer:
-    def __init__(self, SITE_ID, LATITUDE, LONGITUDE, NAME, STATE, LICENSING_AREA_ID, POSTCODE, SITE_PRECISION,
-                 ELEVATION, HCIS_L2, connectedServers):
-        self.HCIS_L2 = HCIS_L2
-        self.ELEVATION = ELEVATION
-        self.SITE_PRECISION = SITE_PRECISION
-        self.POSTCODE = POSTCODE
-        self.LICENSING_AREA_ID = LICENSING_AREA_ID
-        self.STATE = STATE
-        self.NAME = NAME
+    def __init__(self, SITE_ID, LONGITUDE, LATITUDE, connectedServers):
+        """
+        :param SITE_ID: 站点id
+        :param LATITUDE: 纬度
+        :param LONGITUDE: 经度
+        :param connectedServers: 邻接服务器
+        """
+        # self.HCIS_L2 = HCIS_L2
+        # self.ELEVATION = ELEVATION
+        # self.SITE_PRECISION = SITE_PRECISION
+        # self.POSTCODE = POSTCODE
+        # self.LICENSING_AREA_ID = LICENSING_AREA_ID
+        # self.STATE = STATE
+        # self.NAME = NAME
         self.LONGITUDE = LONGITUDE
         self.LATITUDE = LATITUDE
         self.SITE_ID = SITE_ID

@@ -1,8 +1,11 @@
 import pandas as pd
+from geopy.distance import lonlat, distance
 
 from bean.EdgeServer import EdgeServer
 from bean.ServerGraph import ServerGraph
 
+
+# 对当前节点，如果有节点的距离小于某值，则加入邻接节点
 
 class EdgeDataProcessor:
     def __init__(self, csv_file):
@@ -12,22 +15,20 @@ class EdgeDataProcessor:
     def process_data(self):
         for index, row in self.df.iterrows():
             SITE_ID = row['SITE_ID']
-            ELEVATION = row['ELEVATION']
-            NAME = row['NAME']
-            STATE = row['STATE']
-            LICENSING_AREA_ID = row['LICENSING_AREA_ID']
-            POSTCODE = row['POSTCODE']
-            SITE_PRECISION = row['SITE_PRECISION']
-            HCIS_L2 = row['HCIS_L2']
             LONGITUDE = row['LONGITUDE']
             LATITUDE = row['LATITUDE']
-            # data_entry = row['DataEntry']
+            # 如果边缘服务器集合中没有该服务器，则加入
             if SITE_ID not in self.edge_servers:
-                server = EdgeServer(SITE_ID, ELEVATION, LONGITUDE, NAME, STATE, LICENSING_AREA_ID, POSTCODE,
-                                    SITE_PRECISION, HCIS_L2, LATITUDE, connectedServers=[])
+                server = EdgeServer(SITE_ID, LONGITUDE, LATITUDE, [])
                 self.edge_servers[SITE_ID] = server
+                current_server_position = lonlat(LONGITUDE, LATITUDE)
 
-            # self.edge_servers[SITE_ID].add_data_entry(data_entry)
+                for neighbor_SITE_ID in self.edge_servers:
+                    neighbor_server_position = lonlat(
+                        self.edge_servers[neighbor_SITE_ID].LONGITUDE, self.edge_servers[neighbor_SITE_ID].LATITUDE)
+                    server_distance = distance(current_server_position, neighbor_server_position).miles
+                    if server_distance < 100:
+                        self.edge_servers[SITE_ID].connectedServers.append(self.edge_servers[neighbor_SITE_ID])
 
     def build_graph(self):
         graph = ServerGraph()

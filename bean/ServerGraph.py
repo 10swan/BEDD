@@ -3,8 +3,9 @@ class ServerGraph:
         self.adjacency_list = {}
 
     # 增加服务器
-    def add_server(self, newServer):
-        self.adjacency_list[newServer.SITE_ID] = newServer
+    def add_server(self, server):
+        if server.SITE_ID not in self.adjacency_list:
+            self.adjacency_list[server.SITE_ID] = server
 
     # 添加邻接服务器信息
     # def add_server(self, server1, server2):
