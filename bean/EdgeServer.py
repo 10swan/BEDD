@@ -21,6 +21,3 @@ class EdgeServer:
 
     def add_data_entry(self, data_entry):
         self.data_array.append(data_entry)
-
-    def __str__(self):
-        return f"EdgeServer ID: {self.SITE_ID}, neighbors: {self.neighbors} ,Data Array: {self.data_array}"
