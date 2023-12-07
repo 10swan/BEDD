@@ -3,18 +3,20 @@ import random
 import pandas as pd
 from geopy.distance import lonlat, geodesic
 
-from bean.EdgeServer import EdgeServer
+from bean.Server import Server
 
 
 class ServerGraph:
     def __init__(self, dataset_path):
         self.adjacency_list = {}
         self.df = pd.read_csv(dataset_path)
+        self.build_graph_from_dataset()
+        self.display()
 
     # 增加服务器
     def add_server(self, SITE_ID, LONGITUDE, LATITUDE, data):
         if SITE_ID not in self.adjacency_list:
-            server = EdgeServer(SITE_ID, LONGITUDE, LATITUDE, data, [])
+            server = Server(SITE_ID, LONGITUDE, LATITUDE, data, [])
             self.adjacency_list[SITE_ID] = server
             # print(server.data)
 
@@ -58,6 +60,8 @@ class ServerGraph:
             nearest_neighbors = [item[0] for item in distances_array[:k]]
             # 更新邻接表
             self.add_edge(server, nearest_neighbors)
+
+        return self.adjacency_list
 
     def display(self):
         for SITE_ID, server in self.adjacency_list.items():

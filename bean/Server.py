@@ -1,4 +1,4 @@
-class EdgeServer:
+class Server:
     def __init__(self, SITE_ID, LONGITUDE, LATITUDE, data, neighbors):
         """
         :param SITE_ID: 站点id
