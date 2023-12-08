@@ -38,9 +38,9 @@ class ServerGraph:
 
     def build_graph_from_dataset(self, k=5):
         # 如果边缘服务器集合中没有该服务器，则加入(加点)
-        data = [random.choice([0, 1]) for _ in range(100)]
         for index, row in self.df.iterrows():
             if row.SITE_ID not in self.adjacency_list:
+                data = [random.choice([0, 1]) for _ in range(100)]
                 self.add_server(row.SITE_ID, row.LONGITUDE, row.LATITUDE, data)
         # 构建边缘服务器图的邻接表
         for SITE_ID in self.adjacency_list:
