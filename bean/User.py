@@ -24,7 +24,7 @@ class User:
         nearest_server = adjacency_list[nearest_server_SITE_ID]
         if nearest_server not in self.visited_server:
             self.visited_server.add(nearest_server)
-            if nearest_server[dataId]:
+            if nearest_server.data[dataId]:
                 print(f"找到了数据，它在{nearest_server.SITE_ID}服务器")
                 return
             else:

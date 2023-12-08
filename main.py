@@ -17,4 +17,4 @@ nearest_server_SITE_ID = user.get_user_nearest_server_location(server_graph.adja
 print('nearest_server_SITE_ID', nearest_server_SITE_ID)
 
 #
-user.request_data(1, nearest_server_SITE_ID, server_graph.adjacency_list)
+user.request_data(0, nearest_server_SITE_ID, server_graph.adjacency_list)

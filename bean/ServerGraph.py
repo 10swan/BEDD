@@ -1,7 +1,6 @@
 import random
 
 import pandas as pd
-from geopy.distance import lonlat, geodesic
 
 from bean.Server import Server
 
@@ -24,17 +23,6 @@ class ServerGraph:
         SITE_ID = server.SITE_ID
         if SITE_ID in self.adjacency_list:
             self.adjacency_list[SITE_ID].neighbors = nearest_neighbors
-
-    @staticmethod
-    def compute_distance(server_1, server_2):
-        server_1_position = lonlat(server_1.LONGITUDE, server_1.LATITUDE)
-        server_2_position = lonlat(server_2.LONGITUDE, server_2.LATITUDE)
-        distance_between_servers = geodesic(server_1_position, server_2_position).meters
-        return distance_between_servers
-
-    def check_distance(self, server1, server2, threshold=100):
-        distance_between_servers = self.compute_distance(server1, server2)
-        return distance_between_servers < threshold
 
     def build_graph_from_dataset(self, k=5):
         # 如果边缘服务器集合中没有该服务器，则加入(加点)
