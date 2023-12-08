@@ -3,6 +3,7 @@ import random
 import pandas as pd
 
 from bean.Server import Server
+from utils.compute_distance import compute_distance
 
 
 class ServerGraph:
@@ -38,7 +39,7 @@ class ServerGraph:
             for neighbor_SITE_ID in self.adjacency_list:
                 if SITE_ID != neighbor_SITE_ID:
                     neighborServer = self.adjacency_list[neighbor_SITE_ID]
-                    distance_between_servers = self.compute_distance(server, neighborServer)
+                    distance_between_servers = compute_distance(server, neighborServer)
                     distances_array.append((self.adjacency_list[neighbor_SITE_ID], distance_between_servers))
 
             # 按距离排序
